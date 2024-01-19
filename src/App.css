@@ -1,38 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Amiri&display=swap');
+:root {
+  --basic-color: #EB0C67;
+}
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  font-family: 'Amiri', serif;
+  overflow: auto;
 }
 
-.App-link {
-  color: #61dafb;
+.pokedex-header h1{
+  text-align: center;
+  text-emphasis: bold;
+  font-size: 80px;
+  color: #EB0C67;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Individual Cards */
+
+.card-container {
+}
+
+
+
+
+
+
+.list-head {
+  text-align: center;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.footer {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.type-button {
+  padding-top: 10px;
+  padding-right: 10px;
+  padding-bottom: 5px;
+  margin: 5px;
+  width: 50px;
+  height: 30px;
+}
+
+.buttons-container {
+  display: inline-flex;
+
 }
