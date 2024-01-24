@@ -1,54 +1,49 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { render } from '@testing-library/react';
 import PokemonTypeList from './components/PokemonTypeList.js';
 import ButtonList from './components/ButtonList';
 import { Button } from 'react-bootstrap';
 import TypeButton from './components/TypeButton.js';
 import withListLoading from './components/withListLoading';
+import DexList from './components/DexList';
 
 function App() {
+  const List = withListLoading(ButtonList);
 
-  const List = withListLoading(ButtonList)
-
-  const [appState, setAppState] = useState({
-    loading: false,
-    apiUrl:'https://pokeapi.co/api/v2/type/1/?limit=15&offset=15',
-    types: null
-  })
+  const [pokemonData, setPokemonData] = useState([])
+  const [pokemonUrls, setPokemonUrls] = useState([])
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setAppState({loading: true})
-    const mytypes = getType()
-    setAppState({loading:false, types: mytypes})
-  }, [setAppState]);
-
-  function getType() {
-    let mytypes = []
-    fetch('https://pokeapi.co/api/v2/type')
-    .then(results => results.json())
-    .then(pokemonType => {if (pokemonType) {
-      let results = pokemonType.results
-      results.forEach(result => {
-        mytypes.push(result)
-      })
-      }
-    });
-   return mytypes
+    setLoading(true);
+  
+    const fetchData = async () => {
+      const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=25")
+      const pokemon = await response.json()
+      const pokeData = await Promise.all(pokemon.results.map(async (obj) => {
+          return {
+              ...obj,
+              sprite: await fetch(obj.url).then(results => results.json())
+          }
+        }));
+      setPokemonData(pokeData);
   }
 
- 
-  console.log(appState.types)
+    
+    fetchData();
+    setLoading(false);
+  }, []);
+
   return (
     <div className="App">
       <div className="pokedex-header">
         <h1> POKEDEX </h1>
       </div>
-      <div> 
-        <List isLoading={appState.loading} types={appState.types} />
+      <div>
+        {console.log(pokemonData)}
       </div>
       <div className="pokedex-body">
-        <DexList pokemons={myPokemons} />
+        <DexList pokemonList={pokemonData} />
       </div>
     </div>
   );
