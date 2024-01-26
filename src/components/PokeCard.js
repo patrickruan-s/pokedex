@@ -1,37 +1,24 @@
 import React, { useState, useEffect } from 'react';
 
 const PokeCard = (props) => {
-  const data = useState(props.data);
-
-  // useEffect(() => {
-  //   const myMonUrls = fetchData();
-  //   console.log(myMonUrls);
-  //   setMonData(myMonUrls);
-  // }, [monData]);
-
-  // function fetchData() {
-  //   fetch(props.url)
-  //   .then(results => results.json())
-  //   .then(mon => {
-  //     return mon;
-  //   });
-  // }
+  const pokemon = props.pokemon;
+  const pokeData = pokemon.data;
+  const name = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
 
   return (
-    // <ul className="card-container">
-    //   <div className="card text-center mx-auto" style={{"maxWidth" : "18rem"}} key={id}>
-    //     <div className="card-header">
-    //       <b>{pokemon.name}</b>
-    //     </div>
-    //     <div className="card-body">          
-    //       <h6 className="card-subtitle mb-2 text-muted">Id: {pokemon.id}</h6>  
-    //       <h6 className="card-subtitle mb-2 text-muted">Height: {pokemon.height}</h6>  
-    //       <h6 className="card-subtitle mb-2 text-muted">Weight: {pokemon.weight}</h6>   
-    //       <h6 className="card-subtitle mb-2 text-muted">Experience: {pokemon.base_experience}</h6>  
-    //     </div>
-    //   </div>
-    // </ul>
-    <div> something</div>
+    <ul className="card-container col-3">
+      <div className="card text-center mx-auto" style={{"maxWidth" : "18rem"}}>
+        <div className="card-header">
+          <b>{name}</b>
+        </div>
+        <div className="card-body">          
+          <h6 className="card-subtitle mb-2 text-muted">Id: {pokeData.id}</h6>  
+          <h6 className="card-subtitle mb-2 text-muted">Height: {pokeData.height}</h6>  
+          <h6 className="card-subtitle mb-2 text-muted">Weight: {pokeData.weight}</h6>   
+          <h6 className="card-subtitle mb-2 text-muted">Experience: {pokeData.base_experience}</h6>  
+        </div>
+      </div>
+    </ul>
     );
 };
 

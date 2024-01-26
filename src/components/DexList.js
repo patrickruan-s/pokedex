@@ -3,17 +3,15 @@ import PokeCard from './PokeCard';
 import { Button } from 'react-bootstrap';
 
 const DexList = (props) => {
-    const pokemonList = props.pokemonList
+    const pokemonData = props.pokemonList;
+
     return(
         <div>
-            {/* <div>
-                <div>{console.log(pokemonList)}</div>
-            </div> */}
-            <ul>
-                {pokemonList.map((pokemonData) => {
-                    return <ul><PokeCard data={pokemonData}/></ul> ;
+            <div className='row dex-row'>
+                {pokemonData.map(pokemon => {
+                    return  <PokeCard pokemon={pokemon} key={pokemon.data.id} />
                 })}
-            </ul>
+            </div>
         </div>
     );
 }

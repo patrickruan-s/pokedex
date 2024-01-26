@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import './App.css';
-import PokemonTypeList from './components/PokemonTypeList.js';
 import ButtonList from './components/ButtonList';
 import { Button } from 'react-bootstrap';
 import TypeButton from './components/TypeButton.js';
@@ -10,40 +10,53 @@ import DexList from './components/DexList';
 function App() {
   const List = withListLoading(ButtonList);
 
-  const [pokemonData, setPokemonData] = useState([])
-  const [pokemonUrls, setPokemonUrls] = useState([])
+  const [pokemonData, setPokemonData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [page, setPage] = useState(0);
 
-  useEffect(() => {
+  const fetchData = async () => {
     setLoading(true);
-  
-    const fetchData = async () => {
-      const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=25")
+    setError(null);
+    const offset = (page) * 24;
+    try {
+      const oldData = pokemonData;
+      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=24&offset=${offset}`)
       const pokemon = await response.json()
       const pokeData = await Promise.all(pokemon.results.map(async (obj) => {
           return {
               ...obj,
-              sprite: await fetch(obj.url).then(results => results.json())
+              data: await fetch(obj.url).then(results => results.json())
           }
         }));
-      setPokemonData(pokeData);
+      setPokemonData([...oldData, ...pokeData]);
+      setPage(page + 1);
+    } catch (error) {
+      setError(error)
+    } finally {
+      setLoading(false)
+    }
   }
 
-    
+  useEffect(() => {  
     fetchData();
-    setLoading(false);
   }, []);
 
+  console.log(pokemonData)
   return (
     <div className="App">
       <div className="pokedex-header">
         <h1> POKEDEX </h1>
       </div>
-      <div>
-        {console.log(pokemonData)}
-      </div>
       <div className="pokedex-body">
+      <InfiniteScroll
+      dataLength={pokemonData.length}
+      next={fetchData}
+      hasMore={true} // Replace with a condition based on your data source
+      loader={<p>Loading...</p>}
+      endMessage={<p>No more data to load.</p>}>
         <DexList pokemonList={pokemonData} />
+      </InfiniteScroll>
       </div>
     </div>
   );
