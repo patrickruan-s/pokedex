@@ -23,13 +23,13 @@ function App() {
       const oldData = pokemonData;
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=24&offset=${offset}`)
       const pokemon = await response.json()
-      const pokeData = await Promise.all(pokemon.results.map(async (obj) => {
+      const newData = await Promise.all(pokemon.results.map(async (obj) => {
           return {
               ...obj,
               data: await fetch(obj.url).then(results => results.json())
           }
         }));
-      setPokemonData([...oldData, ...pokeData]);
+      setPokemonData([...oldData, ...newData]);
       setPage(page + 1);
     } catch (error) {
       setError(error)
@@ -42,7 +42,6 @@ function App() {
     fetchData();
   }, []);
 
-  console.log(pokemonData)
   return (
     <div className="App">
       <div className="pokedex-header">
