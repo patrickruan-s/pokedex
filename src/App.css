@@ -24,7 +24,7 @@
 /* Individual Cards */
 
 .pokemon-card {
-  margin-bottom: 5px;
+  margin-bottom: 25px;
   padding: 0;
   text-align: center;
   box-shadow: 0 1px 5px #2b5353;
@@ -58,7 +58,7 @@
   }
 
   img {
-    width: 75%;
+    width: 65%;
   }
 }
 
