@@ -19,7 +19,20 @@
 
 /* Individual Cards */
 
-.card-container {
+.dex-row {
+  padding-left: 25px;
+
+  .pokemon-card {
+    margin-bottom: 5px;
+    padding: 0;
+
+    .card-header {
+      text-align: center;
+    }
+
+    img {
+    }
+  }
 }
 
 

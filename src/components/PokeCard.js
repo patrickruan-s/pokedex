@@ -8,10 +8,12 @@ const PokeCard = (props) => {
   const name = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
   const sprite = pokeData.sprites.front_default;
   return (
-    <Card className='col-3'>
-      <Card.Body>
+    <Card className='col-2 pokemon-card mr-5'>
+      <Card.Header>
         <Card.Title>{name}</Card.Title>
-        <Image src={sprite}></Image>
+      </Card.Header>
+      <Card.Body>
+        <Card.Img variant='bottom' src={sprite} />
       </Card.Body>
     </Card>
     // <ul className="card-container col-3">
