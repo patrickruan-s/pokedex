@@ -9,7 +9,8 @@ const DexList = (props) => {
         <div>
             <div className='row dex-row'>
                 {pokemonData.map(pokemon => {
-                    return  <PokeCard pokemon={pokemon} key={pokemon.data.id} />
+
+                    return <PokeCard pokemon={pokemon} key={pokemon.data.id} />
                 })}
             </div>
         </div>

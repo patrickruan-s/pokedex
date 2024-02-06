@@ -17,22 +17,62 @@
   color: #EB0C67;
 }
 
-/* Individual Cards */
-
 .dex-row {
   padding-left: 25px;
+}
 
-  .pokemon-card {
-    margin-bottom: 5px;
-    padding: 0;
+/* Individual Cards */
 
-    .card-header {
-      text-align: center;
-    }
+.pokemon-card {
+  margin-bottom: 5px;
+  padding: 0;
+  text-align: center;
+  box-shadow: 0 1px 5px #2b5353;
+  color: #2b5353;
+  border-radius: 10px;
+  position: relative;
+  height: 15em;
 
-    img {
-    }
+  transition-duration: 300ms;
+  transition-property: transform, box-shadow;
+  transition-timing-function: ease-out;
+  transform: rotate3d(0);
+
+  .glow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+  
+    background-image: radial-gradient(circle at 50% -20%, #ffffff22, #0000000f);
   }
+
+  :hover {
+    transition-duration: 150ms;
+    box-shadow: 0 5px 20px 5px #00000044;
+  }
+
+  .card-header {
+    text-align: right;
+  }
+
+  img {
+    width: 75%;
+  }
+}
+
+.pokemon-card::before {    
+  content: "";
+  background-image: url("images/pokeball.png");
+  background-size: contain;
+  background-position: center;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  opacity: 0.1;
 }
 
 
