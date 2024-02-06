@@ -50,14 +50,17 @@ console.log(center.y / 100)
   useEffect(() => {});
 
   return (
-    <Card className='col-2 pokemon-card mr-5'>
+    <Card className='col-2 pokemon-card mr-5'
+          ref={inputRef}
+          onMouseLeave={removeListener}
+          onMouseMove={rotateToMouse}>
       <Card.Header>
         <Card.Title><h5>{name}</h5></Card.Title>
       </Card.Header>
       <Card.Body>
         <Card.Img variant='bottom' src={sprite} />
       </Card.Body>
-      <div className="glow" />
+      <div className="glow" ref={glowRef}/>
     </Card>
     // <ul className="card-container col-3">
     //   <div className="card text-center mx-auto" style={{"maxWidth" : "18rem"}}>
