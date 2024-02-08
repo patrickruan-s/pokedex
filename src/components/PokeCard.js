@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useRef, onMouseEnter, onMouseLeave } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Card from 'react-bootstrap/Card';
-import Image from 'react-bootstrap/Image';
 
 const PokeCard = (props) => {
   const pokemon = props.pokemon;

@@ -101,3 +101,9 @@
   display: inline-flex;
 
 }
+
+/* Loader */
+
+.loader {
+  align-items: center;
+}

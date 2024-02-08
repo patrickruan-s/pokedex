@@ -2,14 +2,11 @@ import React, { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import './App.css';
 import ButtonList from './components/ButtonList';
-import { Button } from 'react-bootstrap';
 import TypeButton from './components/TypeButton.js';
-import withListLoading from './components/withListLoading';
 import DexList from './components/DexList';
+import LoadingAnimation from './components/LoadingAnimation.js';
 
 function App() {
-  const List = withListLoading(ButtonList);
-
   const [pokemonData, setPokemonData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -42,6 +39,8 @@ function App() {
     fetchData();
   }, []);
 
+  const dexList = <DexList pokemonList={pokemonData} isLoading={loading}/>;
+
   return (
     <div className="App">
       <div className="pokedex-header">
@@ -52,7 +51,7 @@ function App() {
       dataLength={pokemonData.length}
       next={fetchData}
       hasMore={true} // Replace with a condition based on your data source
-      loader={<p>Loading...</p>}
+      loader={<LoadingAnimation />}
       endMessage={<p>No more data to load.</p>}>
         <DexList pokemonList={pokemonData} />
       </InfiniteScroll>
