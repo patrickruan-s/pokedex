@@ -32,6 +32,7 @@
   border-radius: 10px;
   position: relative;
   height: 15em;
+  cursor: pointer;
 
   transition-duration: 300ms;
   transition-property: transform, box-shadow;
@@ -75,6 +76,10 @@
   opacity: 0.1;
 }
 
+.pokemon-card.show {
+  height: 50vh;
+  width: 50vh;
+}
 
 
 

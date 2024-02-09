@@ -31,7 +31,6 @@ const PokeCard = (props) => {
         ${Math.log(distance) * 2}deg
       )
     `;
-console.log(center.y / 100)
     glowRef.current.style.backgroundImage = `
       radial-gradient(
         circle at
@@ -48,11 +47,17 @@ console.log(center.y / 100)
   };
   useEffect(() => {});
 
+  const handleClick = () => {
+    console.log('click');
+    props.onClick(props.id);
+  }
+
   return (
-    <Card className='col-2 pokemon-card mr-5'
+    <Card className={'pokemon-card mr-5 col-2'}
           ref={inputRef}
           onMouseLeave={removeListener}
-          onMouseMove={rotateToMouse}>
+          onMouseMove={rotateToMouse}
+          onClick={handleClick}>
       <Card.Header>
         <Card.Title><h5>{name}</h5></Card.Title>
       </Card.Header>
