@@ -13,23 +13,21 @@ const DexList = (props) => {
     const handleClick = (key) => {
         console.log(key);
         if(key == expandedCard) {
-            setExpandedCard(null)
+            setExpandedCard(null);
+            setSelectedMon(null);
         } else {
             setExpandedCard(key);
+            findSelectedMon(key);
         }
     }
 
-    useEffect(() => {
-        const findSelectedMon = () => {
-            if(pokemonData == null || pokemonData.length <= 0) {return setSelectedMon(null)}
+    const findSelectedMon = (id) => {
+        if(pokemonData == null || pokemonData.length <= 0) { return setSelectedMon(null) }
 
-            const ids = pokemonData.map(pokemon => pokemon.data.id);
-            const mon = pokemonData[ids.indexOf(expandedCard)];
-            setSelectedMon(mon);
-        }
-
-        findSelectedMon();
-    }, []);
+        const ids = pokemonData.map(pokemon => pokemon.data.id);
+        const mon = pokemonData[ids.indexOf(id)];
+        setSelectedMon(mon);
+    }
 
     return(
         <div className='row'>
@@ -40,7 +38,11 @@ const DexList = (props) => {
             <div className='col dex-list'>
                 <div className='row dex-row'>
                     {pokemonData.map(pokemon => {
-                        return <PokeCard pokemon={pokemon} id={pokemon.data.id} key={pokemon.data.id} onClick={handleClick}/>;
+                        return <PokeCard pokemon={pokemon} 
+                                         id={pokemon.data.id} 
+                                         key={pokemon.data.id} 
+                                         isSelected={pokemon.data.id == expandedCard}
+                                         onClick={handleClick}/>;
                     })}
                 </div>
             </div>

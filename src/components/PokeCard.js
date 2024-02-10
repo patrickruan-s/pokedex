@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Card from 'react-bootstrap/Card';
 
 const PokeCard = (props) => {
+  const selected = props.isSelected;
   const pokemon = props.pokemon;
   const pokeData = pokemon.data;
   const name = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
@@ -48,12 +49,11 @@ const PokeCard = (props) => {
   useEffect(() => {});
 
   const handleClick = () => {
-    console.log('click');
     props.onClick(props.id);
   }
 
   return (
-    <Card className={'pokemon-card mr-5 col-2'}
+    <Card className={`${selected ? 'selected' : ''} pokemon-card mr-5 col-2`}
           ref={inputRef}
           onMouseLeave={removeListener}
           onMouseMove={rotateToMouse}
