@@ -3,8 +3,8 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import './App.css';
 import ButtonList from './components/ButtonList';
 import TypeButton from './components/TypeButton.js';
-import DexList from './components/DexList';
 import LoadingAnimation from './components/LoadingAnimation.js';
+import DexList from './components/DexList';
 
 function App() {
   const [pokemonData, setPokemonData] = useState([]);
@@ -48,11 +48,12 @@ function App() {
       </div>
       <div className="pokedex-body">
       <InfiniteScroll
-      dataLength={pokemonData.length}
-      next={fetchData}
-      hasMore={true} // Replace with a condition based on your data source
-      loader={<LoadingAnimation />}
-      endMessage={<p>No more data to load.</p>}>
+        scrollableTarget='dex-list'
+        dataLength={pokemonData.length}
+        next={fetchData}
+        hasMore={true} // Replace with a condition based on your data source
+        loader={<LoadingAnimation />}
+        endMessage={<p>No more data to load.</p>}>
         <DexList pokemonList={pokemonData} />
       </InfiniteScroll>
       </div>

@@ -19,6 +19,14 @@
   }
 }
 
+.pokedex-body {
+  height: 100vh;
+}
+
+#dex-list {
+  overflow-y: scroll;
+}
+
 .dex-row {
   padding-left: 25px;
   padding-top: 20px;
@@ -84,6 +92,11 @@
   align-self: center;
   border-radius: 3px;
   transition: all .20s ease-in-out;
+}
+
+#dex-list {
+  height: 100vh;
+  overflow-y: scroll;
 }
 
 /* Card on Display */

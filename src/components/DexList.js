@@ -35,7 +35,7 @@ const DexList = (props) => {
             <div className={`${expandedCard == null ? 'hidden' : 'show-display col'} dex-display`}>
                 { expandedCard ? <ExpandedPokeCard pokemon={selectedMon} onClick={handleClick} /> : null }
             </div>
-            <div className='col dex-list'>
+            <div className='col dex-list' id='dex-list'>
                 <div className='row dex-row'>
                     {pokemonData.map(pokemon => {
                         return <PokeCard pokemon={pokemon} 

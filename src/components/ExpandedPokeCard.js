@@ -6,6 +6,7 @@ const ExpandedPokeCard = (props) => {
     const pokeData = pokemon.data;
     const name = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
     const sprite = pokeData.sprites.front_default;
+
     if(pokemon == null) {
         return <div></div>
     } else {
