@@ -8,6 +8,7 @@
   flex-direction: column;
   font-family: 'Amiri', serif;
   overflow: auto;
+  height: 100vh;
 }
 
 .pokedex-header {
@@ -19,17 +20,15 @@
   }
 }
 
-.pokedex-body {
-  height: 100vh;
-}
-
 #dex-list {
+  height: 80vh;
   overflow-y: scroll;
 }
 
 .dex-row {
   padding-left: 25px;
   padding-top: 20px;
+  padding-bottom: 10px;
 }
 
 /* Individual Cards */
@@ -94,11 +93,6 @@
   transition: all .20s ease-in-out;
 }
 
-#dex-list {
-  height: 100vh;
-  overflow-y: scroll;
-}
-
 /* Card on Display */
 
 .dex-display {
@@ -109,6 +103,7 @@
 /* Loader */
 
 .loader {
+  float: right;
   align-items: center;
 }
 

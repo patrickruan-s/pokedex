@@ -52,7 +52,7 @@ function App() {
         dataLength={pokemonData.length}
         next={fetchData}
         hasMore={true} // Replace with a condition based on your data source
-        loader={<LoadingAnimation />}
+        loader={<LoadingAnimation loading={loading} />}
         endMessage={<p>No more data to load.</p>}>
         <DexList pokemonList={pokemonData} />
       </InfiniteScroll>
