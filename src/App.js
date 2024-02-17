@@ -25,7 +25,7 @@ function App() {
               ...obj,
               data: await fetch(obj.url).then(results => results.json())
           }
-        }));
+      }));
       setPokemonData([...oldData, ...newData]);
       setPage(page + 1);
     } catch (error) {
@@ -38,8 +38,6 @@ function App() {
   useEffect(() => {  
     fetchData();
   }, []);
-
-  const dexList = <DexList pokemonList={pokemonData} isLoading={loading}/>;
 
   return (
     <div className="App">

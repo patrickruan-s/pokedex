@@ -2,7 +2,7 @@ import React from 'react';
 import { Audio } from 'react-loader-spinner'
 
 const LoadingAnimation = (props) => {
-    const loading = true;
+    const loading = props.loading;
     if(loading) {
         return(
             <div className='loader row'>
