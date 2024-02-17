@@ -99,6 +99,27 @@
   transition: all .40s ease-in-out;
 }
 
+.expanded-card {
+  .meta-data {
+    float:right;
+    margin-left: 20px;
+    text-align: center;
+
+    .card-text {
+      padding-left: 5px;
+      padding-top: 5px;
+      text-align: center;
+    }
+  }
+}
+
+/* font-styling */
+
+h5 {
+  text-emphasis: bold;
+}
+
+
 
 /* Loader */
 

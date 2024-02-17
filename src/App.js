@@ -21,9 +21,17 @@ function App() {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=24&offset=${offset}`)
       const pokemon = await response.json()
       const newData = await Promise.all(pokemon.results.map(async (obj) => {
+          const data = await fetch(obj.url).then(results => results.json());
+          const abilities = await Promise.all(data.abilities.map(async (ability) => {
+            const url = ability.ability.url;
+            return {
+              data: await fetch(url).then(results => results.json())
+            }
+          }));
           return {
               ...obj,
-              data: await fetch(obj.url).then(results => results.json())
+              abilities: abilities,
+              data: data
           }
       }));
       setPokemonData([...oldData, ...newData]);
