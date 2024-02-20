@@ -20,6 +20,10 @@
   }
 }
 
+.pokedex-body {
+  padding-left: 20px;
+}
+
 #dex-list {
   height: 80vh;
   overflow-y: scroll;
@@ -97,12 +101,12 @@
 
 .dex-display {
   transition: all .40s ease-in-out;
-
 }
 
 .expanded-card {
   .card-body {
     padding-bottom: 0;
+    padding-left: 30px;
   }
 
   .meta-data {
@@ -129,6 +133,14 @@ h5 {
   text-emphasis: bold;
 }
 
+.hoverable-text {
+  color: #0071c5;
+  cursor: pointer;
+}
+
+.hoverable-content {
+  transition: all .1s ease-in-out;
+}
 
 
 /* Loader */
@@ -136,6 +148,9 @@ h5 {
 .loader {
   align-items: center;
 }
+
+
+/* list */
 
 
 .list-head {
