@@ -14,7 +14,6 @@ const ExpandedPokeCard = (props) => {
           return str.charAt(0).toUpperCase() + str.slice(1);
         }
 
-        debugger
         return (
             <Card className='expanded-card'>
                 <Card.Header>
