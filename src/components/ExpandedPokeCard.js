@@ -16,6 +16,19 @@ const ExpandedPokeCard = (props) => {
           return str.charAt(0).toUpperCase() + str.slice(1);
         }
 
+        const findFirstEnglishEntry = (ability) => {
+            const flavorTexts = ability.data.flavor_text_entries;
+            var enText = '';
+            flavorTexts.forEach((text) => {
+                if(text.language.name == 'en') {
+                    enText = text.flavor_text;
+                    return false
+                }
+            });
+
+            return enText;
+        }
+        
         return (
             <Card className='expanded-card'>
                 <Card.Header>
@@ -54,7 +67,7 @@ const ExpandedPokeCard = (props) => {
                             <div className='row abilities'>
                                 <span style={{fontWeight: "bold"}}>Abilities: &nbsp;</span>
                                 <span className='col float-right'>
-                                    {abilities.map(ability => <OnHoverText className='row' key={ability.data.name} hoverContent={ability.data.flavor_text_entries[0].flavor_text} text={capitalizeString(ability.data.name)} />)}
+                                    {abilities.map(ability => <OnHoverText className='row' key={ability.data.name} hoverContent={findFirstEnglishEntry(ability)} text={capitalizeString(ability.data.name)} />)}
                                 </span>
                             </div>
                         </Card.Text>
