@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import './App.css';
-import ButtonList from './components/ButtonList';
-import TypeButton from './components/TypeButton.js';
 import LoadingAnimation from './components/LoadingAnimation.js';
 import DexList from './components/DexList';
 

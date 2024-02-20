@@ -13,27 +13,46 @@ const ExpandedPokeCard = (props) => {
         const capitalizeString = (str) => {
           return str.charAt(0).toUpperCase() + str.slice(1);
         }
+
+        debugger
         return (
             <Card className='expanded-card'>
                 <Card.Header>
-                    <Card.Title><h5>{name}</h5></Card.Title>
+                    <Card.Title><h4>{name}</h4></Card.Title>
                 </Card.Header>
                 <Card.Body className='row'>
                     <Card className='col-6'>
-                        <Card.Img variant='top' src={sprite} />
+                        <Card.Img variant='top' src={sprite} className='sprite-display'/>
                     </Card>
                     <Card className='col-5 meta-data'>
                         <Card.Text>
                             <div className='row' style={{textAlign: "center"}}>
-                            <h5>Type:&nbsp;</h5> 
-                                <p>
+                                <span style={{fontWeight: "bold"}}>Type:&nbsp;</span> 
+                                <span>
                                     {pokeData.types.map(type => capitalizeString(type.type.name)).join(', ') }
-                                </p>
+                                </span>
                             </div>
                         </Card.Text>
-                        <Card.Text className='row'>
-                            <h6></h6>
+                        <Card.Text>
+                            <div className='row'>
+                                <span style={{fontWeight: "bold"}}>Height: &nbsp;</span>
+                                <span>
+                                    {`${(pokeData.height * 0.328084).toFixed(2)} ft`}
+                                </span>
+                            </div>
                         </Card.Text>
+                        <Card.Text>
+                            <div className='row'>
+                                <span style={{fontWeight: "bold"}}>Weight: &nbsp;</span>
+                                <span>
+                                    {`${(pokeData.weight * 0.220462).toFixed(2)} lbs`}
+                                </span>
+                            </div>
+                        </Card.Text>
+                    </Card>
+                </Card.Body>
+                <Card.Body className='row'>
+                    <Card className='col-8 display-body'>
                     </Card>
                 </Card.Body>
             </Card>
