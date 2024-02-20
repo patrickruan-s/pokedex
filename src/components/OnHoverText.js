@@ -9,7 +9,7 @@ const OnHoverText = (props) => {
     return(
             <div className='hoverable-text'
             onMouseEnter={e => {
-                setStyle({opacity: 1, height: 'fit-content'});
+                setStyle({opacity: 1});
             }}
             onMouseLeave={e => {
                 setStyle({opacity: 0, height: '0px'})

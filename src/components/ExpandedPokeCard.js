@@ -53,14 +53,14 @@ const ExpandedPokeCard = (props) => {
                         <Card.Text>
                             <div className='row abilities'>
                                 <span style={{fontWeight: "bold"}}>Abilities: &nbsp;</span>
-                                <span style={{position: 'absolute'}}>
-                                    {abilities.map(ability => <OnHoverText key={ability.data.name} hoverContent={ability.data.flavor_text_entries[0].flavor_text} text={capitalizeString(ability.data.name)} />)}
+                                <span className='col float-right'>
+                                    {abilities.map(ability => <OnHoverText className='row' key={ability.data.name} hoverContent={ability.data.flavor_text_entries[0].flavor_text} text={capitalizeString(ability.data.name)} />)}
                                 </span>
                             </div>
                         </Card.Text>
                     </Card>
                 </Card.Body>
-                <Card.Body className='row' style={{paddingBottom: '20px'}}>
+                <Card.Body className='row display-bottom-row' style={{paddingBottom: '20px'}}>
                     <Card className='col-8 display-body'>
                     </Card>
                     <Card className='col-3 moves' style={{width: '100px'}}>

@@ -125,6 +125,10 @@
     height: 30vh;
     padding-bottom: 20px;
   }
+
+  .display-bottom-row {
+    z-index: 1;
+  }
 }
 
 /* font-styling */
@@ -136,13 +140,18 @@ h5 {
 .hoverable-text {
   color: #0071c5;
   cursor: pointer;
+  z-index: 2;
+
   .hoverable-content {
     position: absolute;
+    min-height: 60px;
     color: #000000;
     transition: all .1s ease-in-out;
-    margin-bottom: -50px;
+    z-index: 3;
   }
 }
+
+
 
 
 /* Loader */
