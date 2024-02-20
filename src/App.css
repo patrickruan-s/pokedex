@@ -137,8 +137,10 @@ h5 {
   color: #0071c5;
   cursor: pointer;
   .hoverable-content {
+    position: absolute;
     color: #000000;
     transition: all .1s ease-in-out;
+    margin-bottom: -50px;
   }
 }
 

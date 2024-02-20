@@ -9,13 +9,13 @@ const OnHoverText = (props) => {
     return(
             <div className='hoverable-text'
             onMouseEnter={e => {
-                setStyle({opacity: 1, height: '50px'});
+                setStyle({opacity: 1, height: 'fit-content'});
             }}
             onMouseLeave={e => {
                 setStyle({opacity: 0, height: '0px'})
             }}>
                 {text}
-                <Card className='hoverable-content' style={style}>{hoverContent}</Card>
+                <Card className={`${style.opacity == 0 ? '' : 'hoverable-content'}`} style={style}>{hoverContent}</Card>
             </div>
     )
 }
