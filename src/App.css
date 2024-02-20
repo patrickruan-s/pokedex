@@ -136,10 +136,10 @@ h5 {
 .hoverable-text {
   color: #0071c5;
   cursor: pointer;
-}
-
-.hoverable-content {
-  transition: all .1s ease-in-out;
+  .hoverable-content {
+    color: #000000;
+    transition: all .1s ease-in-out;
+  }
 }
 
 
