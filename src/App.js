@@ -26,8 +26,10 @@ function App() {
               data: await fetch(url).then(results => results.json())
             }
           }));
+          const pokeFlavorText = await fetch(data.species.url).then(results => results.json());
           return {
               ...obj,
+              flavorTexts: pokeFlavorText.flavor_text_entries,
               abilities: abilities,
               data: data
           }

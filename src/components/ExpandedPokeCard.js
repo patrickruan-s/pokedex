@@ -11,6 +11,8 @@ const ExpandedPokeCard = (props) => {
         const name = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
         const sprite = pokeData.sprites.front_default;
         const abilities = pokemon.abilities;
+        const flavorText = pokemon.flavorTexts[0].flavor_text;
+        debugger
 
         const capitalizeString = (str) => {
           return str.charAt(0).toUpperCase() + str.slice(1);
@@ -30,15 +32,15 @@ const ExpandedPokeCard = (props) => {
         }
         
         return (
-            <Card className='expanded-card'>
+            <Card className='expanded-card' border='primary'>
                 <Card.Header>
                     <Card.Title><h4>{name}</h4></Card.Title>
                 </Card.Header>
                 <Card.Body className='row'>
-                    <Card className='col-6'>
+                    <Card className='col-6' border='success'>
                         <Card.Img variant='top' src={sprite} className='sprite-display'/>
                     </Card>
-                    <Card className='col-5 meta-data'>
+                    <Card className='col-5 meta-data' border='success'>
                         <Card.Text>
                             <div className='row' style={{textAlign: "center"}}>
                                 <span style={{fontWeight: "bold"}}>Type:&nbsp;</span> 
@@ -66,7 +68,7 @@ const ExpandedPokeCard = (props) => {
                         <Card.Text>
                             <div className='row abilities'>
                                 <span style={{fontWeight: "bold"}}>Abilities: &nbsp;</span>
-                                <span className='col float-right'>
+                                <span className='col' style={{width: 'fit-content'}}>
                                     {abilities.map(ability => <OnHoverText className='row' key={ability.data.name} hoverContent={findFirstEnglishEntry(ability)} text={capitalizeString(ability.data.name)} />)}
                                 </span>
                             </div>
@@ -74,9 +76,10 @@ const ExpandedPokeCard = (props) => {
                     </Card>
                 </Card.Body>
                 <Card.Body className='row display-bottom-row' style={{paddingBottom: '20px'}}>
-                    <Card className='col-8 display-body'>
+                    <Card className='col-8 flavor-text'  border='success'>
+                        {flavorText}
                     </Card>
-                    <Card className='col-3 moves' style={{width: '100px'}}>
+                    <Card className='col-3 moves' border='success' style={{width: '100px'}}>
 
                     </Card>
                 </Card.Body>
