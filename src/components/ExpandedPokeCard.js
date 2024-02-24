@@ -12,7 +12,6 @@ const ExpandedPokeCard = (props) => {
         const sprite = pokeData.sprites.front_default;
         const abilities = pokemon.abilities;
         const flavorText = pokemon.flavorTexts[0].flavor_text;
-        debugger
 
         const capitalizeString = (str) => {
           return str.charAt(0).toUpperCase() + str.slice(1);
