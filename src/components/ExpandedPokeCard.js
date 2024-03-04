@@ -1,6 +1,25 @@
 import React, { useState, useEffect } from 'react';
+import {
+    Chart as ChartJS,
+    RadialLinearScale,
+    PointElement,
+    LineElement,
+    Filler,
+    Tooltip,
+    Legend,
+  } from 'chart.js';
+import { Radar } from 'react-chartjs-2';
 import Card from 'react-bootstrap/Card';
 import OnHoverText from './OnHoverText';
+
+ChartJS.register(
+    RadialLinearScale,
+    PointElement,
+    LineElement,
+    Filler,
+    Tooltip,
+    Legend
+);
 
 const ExpandedPokeCard = (props) => {
     if(props.pokemon == null) {
@@ -22,10 +41,21 @@ const ExpandedPokeCard = (props) => {
         }
   
         const getStats = () => {
-            var stats = {};
-            pokeData.stats.forEach((stat) => {
-                stats[stat.stat.name] = stat.base_stat;
-            })
+            var data = pokeData.stats.map((stat) => {
+                return stat.base_stat;
+            });
+            var stats = {
+                labels: ['HP', 'Attack', 'Defense', 'Special Attack', 'Special Defense', 'Speed'],
+                datasets: [
+                  {
+                    label: 'Base Stats',
+                    data: data,
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 0.5,
+                  },
+                ],
+            };
             return stats;
         }
 
@@ -34,17 +64,18 @@ const ExpandedPokeCard = (props) => {
         const name = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
         const sprite = pokeData.sprites.front_default;
         const abilities = pokemon.abilities;
+        const stats = getStats();
         
         return (
             <Card className='expanded-card' border='primary'>
                 <Card.Header>
                     <Card.Title><h4>{name}</h4></Card.Title>
                 </Card.Header>
-                <Card.Body className='row'>
-                    <Card className='col-6' border='success'>
+                <Card.Body className='row display-top-row'>
+                    <Card className='col-5' border='success'>
                         <Card.Img variant='top' src={sprite} className='sprite-display'/>
                     </Card>
-                    <Card className='col-5 meta-data' border='success'>
+                    <Card className='col-6 meta-data' border='success'>
                         <Card.Text>
                             <div className='row' style={{textAlign: "center"}}>
                                 <span style={{fontWeight: "bold"}}>Type:&nbsp;</span> 
@@ -84,7 +115,7 @@ const ExpandedPokeCard = (props) => {
                         {findFirstEnglishEntry(pokemon.flavorTexts)}
                     </Card>
                     <Card className='col-4 stats' border='success' style={{width: '100px'}}>
-                        
+                        <Radar data={stats}></Radar>
                     </Card>
                 </Card.Body>
             </Card>

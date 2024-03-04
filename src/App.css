@@ -106,10 +106,18 @@
 }
 
 .expanded-card {
+  height: 78vh;
 
   .card-body {
     padding-bottom: 0;
     padding-left: 30px;
+  }
+
+  .display-top-row {
+    img {
+      height: 200px;
+      width: 200px;
+    }
   }
 
   .meta-data {
@@ -133,6 +141,18 @@
 
   .display-bottom-row {
     z-index: 1;
+
+    .stats {
+      justify-content: center;
+
+      canvas {
+        height: 20px;
+      }
+    }
+
+    .card {
+      height: 100%;
+    }
   }
 }
 
