@@ -6,19 +6,11 @@ const ExpandedPokeCard = (props) => {
     if(props.pokemon == null) {
         return <div></div>
     } else {
-        const pokemon = props.pokemon;
-        const pokeData = pokemon.data;
-        const name = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
-        const sprite = pokeData.sprites.front_default;
-        const abilities = pokemon.abilities;
-        const flavorText = pokemon.flavorTexts[0].flavor_text;
-
         const capitalizeString = (str) => {
-          return str.charAt(0).toUpperCase() + str.slice(1);
+            return str.charAt(0).toUpperCase() + str.slice(1);
         }
-
-        const findFirstEnglishEntry = (ability) => {
-            const flavorTexts = ability.data.flavor_text_entries;
+  
+        const findFirstEnglishEntry = (flavorTexts) => {
             var enText = '';
             flavorTexts.forEach((text) => {
                 if(text.language.name == 'en') {
@@ -26,9 +18,22 @@ const ExpandedPokeCard = (props) => {
                     return false
                 }
             });
-
             return enText;
         }
+  
+        const getStats = () => {
+            var stats = {};
+            pokeData.stats.forEach((stat) => {
+                stats[stat.stat.name] = stat.base_stat;
+            })
+            return stats;
+        }
+
+        const pokemon = props.pokemon;
+        const pokeData = pokemon.data;
+        const name = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+        const sprite = pokeData.sprites.front_default;
+        const abilities = pokemon.abilities;
         
         return (
             <Card className='expanded-card' border='primary'>
@@ -68,18 +73,18 @@ const ExpandedPokeCard = (props) => {
                             <div className='row abilities'>
                                 <span style={{fontWeight: "bold"}}>Abilities: &nbsp;</span>
                                 <span className='col' style={{width: 'fit-content'}}>
-                                    {abilities.map(ability => <OnHoverText className='row' key={ability.data.name} hoverContent={findFirstEnglishEntry(ability)} text={capitalizeString(ability.data.name)} />)}
+                                    {abilities.map(ability => <OnHoverText className='row' key={ability.data.name} hoverContent={findFirstEnglishEntry(ability.data.flavor_text_entries)} text={capitalizeString(ability.data.name)} />)}
                                 </span>
                             </div>
                         </Card.Text>
                     </Card>
                 </Card.Body>
                 <Card.Body className='row display-bottom-row' style={{paddingBottom: '20px'}}>
-                    <Card className='col-8 flavor-text'  border='success'>
-                        {flavorText}
+                    <Card className='col-7 flavor-text'  border='success'>
+                        {findFirstEnglishEntry(pokemon.flavorTexts)}
                     </Card>
-                    <Card className='col-3 moves' border='success' style={{width: '100px'}}>
-
+                    <Card className='col-4 stats' border='success' style={{width: '100px'}}>
+                        
                     </Card>
                 </Card.Body>
             </Card>

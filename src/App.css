@@ -12,6 +12,7 @@
 }
 
 .pokedex-header {
+  height: 20vh;
   h1 {
     text-align: center;
     text-emphasis: bold;
@@ -30,6 +31,7 @@
 }
 
 .dex-row {
+  justify-content: center;
   padding-left: 25px;
   padding-top: 20px;
   padding-bottom: 10px;
@@ -126,7 +128,7 @@
     margin-right: 20px;
     height: 20vh;
     padding-bottom: 10px;
-    padding-top: 30px;
+    padding-top: 20px;
   }
 
   .display-bottom-row {
@@ -189,5 +191,4 @@ h5 {
 
 .buttons-container {
   display: inline-flex;
-
 }

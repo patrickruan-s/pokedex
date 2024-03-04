@@ -7,7 +7,6 @@ const DexList = (props) => {
     const [expandedCard, setExpandedCard] = useState(null);
     const [selectedMon, setSelectedMon] = useState(null);
     const pokemonList = props.pokemonList;
-
     
     const handleClick = (key) => {
         console.log(key);
