@@ -40,34 +40,54 @@ const ExpandedPokeCard = (props) => {
             return enText;
         }
   
-        const getStats = () => {
+        const getStatsData = () => {
             var data = pokeData.stats.map((stat) => {
                 return stat.base_stat;
             });
             var stats = {
-                labels: ['HP', 'Attack', 'Defense', 'Special Attack', 'Special Defense', 'Speed'],
+                labels: ['HP', 'Attack', 'Defense', 'S Attack', 'S Defense', 'Speed'],
                 datasets: [
                   {
-                    label: 'Base Stats',
                     data: data,
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    backgroundColor: 'rgba(49, 60, 130, 0.5)',
                     borderColor: 'rgba(255, 99, 132, 1)',
                     borderWidth: 0.5,
+                    pointBackgroundColor: 'rgba(86, 95, 155, 0.8)',
+                    pointBorderColor: 'rgba(49, 60, 130, 0.5)',
+                    pointHoverBackgroundColor: 'rgba(200, 224, 236, 0.7)',
+                    pointHoverBorderColor: 'rgba(86, 155, 125, 1)',
                   },
                 ],
             };
             return stats;
         }
 
-        const options = {
-            plugins: {
-                legend: {
-                    display: false
+        const getStatsOptions = (chartData) => {
+            const baseStats = chartData.datasets[0].data;
+            const minStat = Math.min(...baseStats) - 10;
+            const maxStat = Math.max(...baseStats) + 10;
+            const options = {
+                scale: {
+                    r: {
+                        ticks: {
+                            stepSize: Math.round((maxStat - minStat)/2),   
+                            font: {
+                                family: 'Arial',
+                                size: 10,
+                              }              
+                        },
+                        min: minStat,
+                        max: maxStat,
+                    }
                 },
-                datalabels: {
-                    display: false
+                plugins: {
+                    legend: {
+                        display: false
+                    },
                 }
             }
+
+            return options;
         }
 
         const pokemon = props.pokemon;
@@ -75,7 +95,9 @@ const ExpandedPokeCard = (props) => {
         const name = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
         const sprite = pokeData.sprites.front_default;
         const abilities = pokemon.abilities;
-        const stats = getStats();
+        const stats = getStatsData();
+        const options = getStatsOptions(stats);
+        
         
         return (
             <Card className='expanded-card' border='primary'>
@@ -122,12 +144,12 @@ const ExpandedPokeCard = (props) => {
                     </Card>
                 </Card.Body>
                 <Card.Body className='row display-bottom-row' style={{paddingBottom: '20px'}}>
-                    <Card className='col-7 flavor-text'  border='success'>
+                    <Card className='col-6 flavor-text'  border='success'>
                         {findFirstEnglishEntry(pokemon.flavorTexts)}
                     </Card>
-                    <Card className='col-4 stats' border='success' style={{width: '100px'}}>
+                    <Card className='col-5 stats' border='success' style={{width: '100px'}}>
                         <Radar data={stats} 
-                        options={options}></Radar>
+                               options={options} />
                     </Card>
                 </Card.Body>
             </Card>

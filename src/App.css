@@ -12,7 +12,7 @@
 }
 
 .pokedex-header {
-  height: 20vh;
+  height: 18vh;
   h1 {
     text-align: center;
     text-emphasis: bold;
@@ -106,7 +106,7 @@
 }
 
 .expanded-card {
-  height: 78vh;
+  height: 80vh;
 
   .card-body {
     padding-bottom: 0;
@@ -134,7 +134,7 @@
 
   .flavor-text {
     margin-right: 20px;
-    height: 20vh;
+    height: 13vh;
     padding-bottom: 10px;
     padding-top: 20px;
   }
