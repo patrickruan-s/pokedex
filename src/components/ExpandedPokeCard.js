@@ -59,6 +59,17 @@ const ExpandedPokeCard = (props) => {
             return stats;
         }
 
+        const options = {
+            plugins: {
+                legend: {
+                    display: false
+                },
+                datalabels: {
+                    display: false
+                }
+            }
+        }
+
         const pokemon = props.pokemon;
         const pokeData = pokemon.data;
         const name = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
@@ -115,7 +126,8 @@ const ExpandedPokeCard = (props) => {
                         {findFirstEnglishEntry(pokemon.flavorTexts)}
                     </Card>
                     <Card className='col-4 stats' border='success' style={{width: '100px'}}>
-                        <Radar data={stats}></Radar>
+                        <Radar data={stats} 
+                        options={options}></Radar>
                     </Card>
                 </Card.Body>
             </Card>

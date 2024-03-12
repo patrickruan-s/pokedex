@@ -146,7 +146,8 @@
       justify-content: center;
 
       canvas {
-        height: 20px;
+        height: 100% !important;
+        width: 100% !important;
       }
     }
 
