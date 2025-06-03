@@ -3,8 +3,10 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import './App.css';
 import LoadingAnimation from './components/LoadingAnimation.js';
 import DexList from './components/DexList';
+import { ThemeContext } from './components/Contexts.js';
 
 function App() {
+  const [theme, setTheme] = useState('light');
   const [pokemonData, setPokemonData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -43,12 +45,12 @@ function App() {
     }
   }
 
-  useEffect(() => {  
+  useEffect(() => {
     fetchData();
   }, []);
 
   return (
-    <div className="App">
+    <div className={`App ${theme}-background`}>
       <div className="pokedex-header">
         <h1> POKEDEX </h1>
       </div>
@@ -57,10 +59,12 @@ function App() {
         scrollableTarget='dex-list'
         dataLength={pokemonData.length}
         next={fetchData}
-        hasMore={true} // Replace with a condition based on your data source
+        hasMore={true}
         loader={<LoadingAnimation loading={loading} />}
         endMessage={<p>No more data to load.</p>}>
-        <DexList pokemonList={pokemonData} />
+        <ThemeContext.Provider value={theme}>
+          <DexList pokemonList={pokemonData} />
+        </ThemeContext.Provider>
       </InfiniteScroll>
       </div>
     </div>

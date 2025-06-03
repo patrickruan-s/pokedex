@@ -2,6 +2,7 @@
 :root {
   --basic-color: #EB0C67;
 }
+
 .App {
   box-sizing: border-box;
   display: flex;
@@ -9,6 +10,10 @@
   font-family: 'Amiri', serif;
   overflow: auto;
   height: 100vh;
+}
+
+.light-background {
+  background-color: lightblue;
 }
 
 .pokedex-header {

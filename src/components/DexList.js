@@ -2,19 +2,17 @@ import React, {useState, useEffect} from 'react';
 import PokeCard from './PokeCard';
 import ExpandedPokeCard from './ExpandedPokeCard';
 
-
 const DexList = (props) => {
-    const [expandedCard, setExpandedCard] = useState(null);
+    const [selectedMonId, setSelectedMonId] = useState(null);
     const [selectedMon, setSelectedMon] = useState(null);
     const pokemonList = props.pokemonList;
     
     const handleClick = (key) => {
-        console.log(key);
-        if(key == expandedCard) {
-            setExpandedCard(null);
+        if(key == selectedMonId) {
+            setSelectedMonId(null);
             setSelectedMon(null);
         } else {
-            setExpandedCard(key);
+            setSelectedMonId(key);
             findSelectedMon(key);
         }
     }
@@ -30,16 +28,15 @@ const DexList = (props) => {
     return(
         <div className='row'>
             {}
-            <div className={`${expandedCard == null ? 'hidden' : 'show-display col'} dex-display`}>
+            <div className={`${selectedMonId == null ? 'hidden' : 'show-display col'} dex-display`}>
                 <ExpandedPokeCard pokemon={selectedMon} onClick={handleClick} />
             </div>
             <div className='col dex-list' id='dex-list'>
                 <div className='row dex-row'>
                     {pokemonList.map(pokemon => {
                         return <PokeCard pokemon={pokemon} 
-                                         id={pokemon.data.id} 
                                          key={pokemon.data.id} 
-                                         isSelected={pokemon.data.id == expandedCard}
+                                         isSelected={pokemon.data.id == selectedMonId}
                                          onClick={handleClick}/>;
                     })}
                 </div>

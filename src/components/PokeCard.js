@@ -1,7 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import Card from 'react-bootstrap/Card';
+import { ThemeContext } from './Contexts.js';
+
 
 const PokeCard = (props) => {
+  const theme = useContext(ThemeContext);
   const selected = props.isSelected;
   const pokemon = props.pokemon;
   const pokeData = pokemon.data;
@@ -49,7 +52,7 @@ const PokeCard = (props) => {
   useEffect(() => {});
 
   const handleClick = () => {
-    props.onClick(props.id);
+    props.onClick(pokeData.id);
   }
 
   return (
