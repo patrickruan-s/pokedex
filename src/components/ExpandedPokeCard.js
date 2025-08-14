@@ -7,12 +7,14 @@ import {
     Filler,
     Tooltip,
     Legend,
+    ArcElement,
   } from 'chart.js';
-import { Radar } from 'react-chartjs-2';
+import { Pie } from 'react-chartjs-2';
 import Card from 'react-bootstrap/Card';
 import OnHoverText from './OnHoverText';
 
 ChartJS.register(
+    ArcElement,
     RadialLinearScale,
     PointElement,
     LineElement,
@@ -49,13 +51,16 @@ const ExpandedPokeCard = (props) => {
                 datasets: [
                   {
                     data: data,
-                    backgroundColor: 'rgba(49, 60, 130, 0.5)',
+                    backgroundColor: [
+                        'rgba(233, 71, 42, 0.5)',
+                        'rgba(108, 208, 210, 0.94)',
+                        'rgba(221, 230, 105, 0.5)',
+                        'rgba(196, 159, 164, 0.5)',
+                        'rgba(31, 236, 92, 0.84)',
+                        'rgba(49, 60, 130, 0.5)',
+                    ],
                     borderColor: 'rgba(255, 99, 132, 1)',
                     borderWidth: 0.5,
-                    pointBackgroundColor: 'rgba(86, 95, 155, 0.8)',
-                    pointBorderColor: 'rgba(49, 60, 130, 0.5)',
-                    pointHoverBackgroundColor: 'rgba(200, 224, 236, 0.7)',
-                    pointHoverBorderColor: 'rgba(86, 155, 125, 1)',
                   },
                 ],
             };
@@ -73,7 +78,7 @@ const ExpandedPokeCard = (props) => {
                             stepSize: Math.round((maxStat - minStat)/2),   
                             font: {
                                 family: 'Arial',
-                                size: 10,
+                                size: 5,
                               }              
                         },
                         min: minStat,
@@ -82,7 +87,7 @@ const ExpandedPokeCard = (props) => {
                 },
                 plugins: {
                     legend: {
-                        display: false
+                        display: true
                     },
                 }
             }
@@ -148,7 +153,7 @@ const ExpandedPokeCard = (props) => {
                         {findFirstEnglishEntry(pokemon.flavorTexts)}
                     </Card>
                     <Card className='col-5 stats' border='success' style={{width: '100px'}}>
-                        <Radar data={stats} 
+                        <Pie data={stats} 
                                options={options} />
                     </Card>
                 </Card.Body>
