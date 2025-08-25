@@ -56,7 +56,7 @@ const PokeCard = (props) => {
   }
 
   return (
-    <Card className={`${selected ? 'selected' : ''} pokemon-card mr-5 col-2`}
+    <Card className={`${selected ? 'selected' : ''} pokemon-card ${theme}-background mr-5 col-2`}
           ref={inputRef}
           onMouseLeave={removeListener}
           onMouseMove={rotateToMouse}

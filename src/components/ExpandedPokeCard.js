@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { ThemeContext } from './Contexts.js';
+
 import {
     Chart as ChartJS,
     RadialLinearScale,
@@ -24,6 +26,8 @@ ChartJS.register(
 );
 
 const ExpandedPokeCard = (props) => {
+    const theme = useContext(ThemeContext);
+
     if(props.pokemon == null) {
         return <div></div>
     } else {
@@ -106,6 +110,7 @@ const ExpandedPokeCard = (props) => {
         
         return (
             <Card className='expanded-card' border='primary'>
+                <div className={`${theme}`}>
                 <Card.Header>
                     <Card.Title><h4>{name}</h4></Card.Title>
                 </Card.Header>
@@ -157,6 +162,7 @@ const ExpandedPokeCard = (props) => {
                                options={options} />
                     </Card>
                 </Card.Body>
+                </div>
             </Card>
         );
     }

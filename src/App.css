@@ -16,6 +16,18 @@
   background-color: lightblue;
 }
 
+.dark-background {
+  background-color: black;
+}
+
+.pokemon-card.light-background {
+  background-color: white;
+}
+
+.pokemon-card.dark-background {
+  background-color: wheat;
+}
+
 .pokedex-header {
   height: 18vh;
   h1 {
@@ -111,7 +123,14 @@
 }
 
 .expanded-card {
-  height: 83vh;
+
+  .light {
+    background-color: white;
+  }
+
+  .dark {
+    background-color: wheat;
+  }
 
   .card-body {
     padding-bottom: 0;

@@ -45,6 +45,14 @@ function App() {
     }
   }
 
+  const updateTheme = () => {
+    if(theme === 'light') {
+      setTheme('dark');
+    } else {
+      setTheme('light');
+    }
+  }
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -53,6 +61,9 @@ function App() {
     <div className={`App ${theme}-background`}>
       <div className="pokedex-header">
         <h1> POKEDEX </h1>
+      </div>
+      <div>
+        <button onClick={updateTheme}>{theme}</button>
       </div>
       <div className="pokedex-body">
       <InfiniteScroll
