@@ -4,13 +4,17 @@ import './App.css';
 import LoadingAnimation from './components/LoadingAnimation.js';
 import DexList from './components/DexList';
 import { ThemeContext } from './components/Contexts.js';
-
+import FiltersBar from './components/FiltersBar';
+ 
 function App() {
   const [theme, setTheme] = useState('light');
   const [pokemonData, setPokemonData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(0);
+  const [filters, setFilters] = useState({
+    type: '',
+  });
 
   const fetchData = async () => {
     setLoading(true);
@@ -53,8 +57,14 @@ function App() {
     }
   }
 
+  const filterDataByType = (type) => {
+    debugger
+    const newData = pokemonData.filter((pokemon) => pokemon.type.includes(type))
+  }
+
   useEffect(() => {
     fetchData();
+    filterDataByType(filters.type);
   }, []);
 
   return (
@@ -66,6 +76,7 @@ function App() {
         <button onClick={updateTheme}>{theme}</button>
       </div>
       <div className="pokedex-body">
+      <FiltersBar setFilters={setFilters}/>
       <InfiniteScroll
         scrollableTarget='dex-list'
         dataLength={pokemonData.length}
