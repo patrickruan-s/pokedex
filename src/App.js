@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import './App.css';
 import LoadingAnimation from './components/LoadingAnimation.js';
 import DexList from './components/DexList';
+import TypeFilter from './components/TypeFilter';
 import { ThemeContext } from './components/Contexts.js';
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(0);
+  const [selectedType, setSelectedType] = useState('');
 
   const fetchData = async () => {
     setLoading(true);
@@ -45,6 +47,18 @@ function App() {
     }
   }
 
+  const filteredPokemon = useMemo(() => {
+    if (!selectedType) return pokemonData;
+
+    return pokemonData.filter(pokemon => {
+      return pokemon.data.types.some(type => type.type.name === selectedType);
+    });
+  }, [pokemonData, selectedType]);
+
+  const handleTypeChange = (type) => {
+    setSelectedType(type);
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -55,17 +69,21 @@ function App() {
         <h1> POKEDEX </h1>
       </div>
       <div className="pokedex-body">
-      <InfiniteScroll
-        scrollableTarget='dex-list'
-        dataLength={pokemonData.length}
-        next={fetchData}
-        hasMore={true}
-        loader={<LoadingAnimation loading={loading} />}
-        endMessage={<p>No more data to load.</p>}>
         <ThemeContext.Provider value={theme}>
-          <DexList pokemonList={pokemonData} />
+          <TypeFilter
+            onTypeChange={handleTypeChange}
+            selectedType={selectedType}
+          />
+          <InfiniteScroll
+            scrollableTarget='dex-list'
+            dataLength={pokemonData.length}
+            next={fetchData}
+            hasMore={true}
+            loader={<LoadingAnimation loading={loading} />}
+            endMessage={<p>No more data to load.</p>}>
+            <DexList pokemonList={filteredPokemon} />
+          </InfiniteScroll>
         </ThemeContext.Provider>
-      </InfiniteScroll>
       </div>
     </div>
   );

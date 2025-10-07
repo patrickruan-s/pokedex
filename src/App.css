@@ -206,13 +206,18 @@ h5 {
   font-weight: 600;
 }
 
-.type-button {
-  padding-top: 10px;
-  padding-right: 10px;
-  padding-bottom: 5px;
-  margin: 5px;
-  width: 50px;
-  height: 30px;
+.type-buttons {
+  .type-button {
+    text-align: center;
+    box-shadow: 0 1px 5px #2b5353;
+  }
+
+  .selected {
+    border: 1px solid #0071c5;
+    align-self: center;
+    box-shadow: 0 1px 5px #2b5353;
+    transition: all .20s ease-in-out;
+  }
 }
 
 .buttons-container {
