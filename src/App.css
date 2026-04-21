@@ -108,10 +108,11 @@
 
 .dex-display {
   transition: all .40s ease-in-out;
+        height: 100%;
+
 }
 
 .expanded-card {
-  height: 83vh;
 
   .card-body {
     padding-bottom: 0;
@@ -145,8 +146,7 @@
   }
 
   .display-bottom-row {
-    z-index: 1;
-
+    margin-bottom: 20px;
     .stats {
       justify-content: center;
 
