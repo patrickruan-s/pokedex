@@ -5,8 +5,6 @@ import LoadingAnimation from '../components/LoadingAnimation.js';
 import DexList from '../components/DexList';
 import TypeFilter from '../components/TypeFilter';
 import SearchBar from '../components/SearchBar';
-import { ThemeContext } from '../components/Contexts.js';
-
 export default function Home() {
   const [pokemonData, setPokemonData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -93,7 +91,6 @@ export default function Home() {
         </header>
 
         <div className="pokedex-body">
-          <ThemeContext.Provider value="light">
             <SearchBar onSearch={handleSearch} loading={searchLoading} />
 
             {isSearchMode ? (
@@ -125,7 +122,6 @@ export default function Home() {
                 <DexList pokemonList={filteredPokemon} />
               </InfiniteScroll>
             )}
-          </ThemeContext.Provider>
         </div>
       </div>
     </>
