@@ -1,124 +1,25 @@
 "use strict";
+/*
+ * ATTENTION: An "eval-source-map" devtool has been used.
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file with attached SourceMaps in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
 (() => {
 var exports = {};
-exports.id = 198;
-exports.ids = [198];
+exports.id = "pages/api/search";
+exports.ids = ["pages/api/search"];
 exports.modules = {
 
-/***/ 122:
+/***/ "(api)/./pages/api/search.js":
+/*!*****************************!*\
+  !*** ./pages/api/search.js ***!
+  \*****************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ handler)
-/* harmony export */ });
-// API route for searching Pokemon
-async function handler(req, res) {
-    if (req.method !== "GET") {
-        return res.status(405).json({
-            message: "Method not allowed"
-        });
-    }
-    const { q , type , limit =20  } = req.query;
-    if (!q && !type) {
-        return res.status(400).json({
-            message: "Search query or type filter required"
-        });
-    }
-    try {
-        let searchResults = [];
-        // If searching by name/ID
-        if (q) {
-            // Try to get Pokemon by exact name first
-            try {
-                const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${q.toLowerCase()}`);
-                if (response.ok) {
-                    const pokemon = await response.json();
-                    const abilities = await Promise.all(pokemon.abilities.map(async (ability)=>{
-                        const url = ability.ability.url;
-                        return {
-                            data: await fetch(url).then((results)=>results.json())
-                        };
-                    }));
-                    const pokeFlavorText = await fetch(pokemon.species.url).then((results)=>results.json());
-                    searchResults.push({
-                        name: pokemon.name,
-                        url: `https://pokeapi.co/api/v2/pokemon/${pokemon.id}/`,
-                        flavorTexts: pokeFlavorText.flavor_text_entries,
-                        abilities: abilities,
-                        data: pokemon
-                    });
-                }
-            } catch (error) {
-            // If exact match fails, we'll fall back to broader search below
-            }
-            // If no exact match and query looks like it could be partial name
-            if (searchResults.length === 0 && isNaN(q)) {
-                // For demo purposes, we'll fetch first 500 Pokemon and filter client-side
-                // In production, you'd want a proper search index
-                const response1 = await fetch("https://pokeapi.co/api/v2/pokemon/?limit=500");
-                const allPokemon = await response1.json();
-                const matchingPokemon = allPokemon.results.filter((pokemon)=>pokemon.name.toLowerCase().includes(q.toLowerCase())).slice(0, parseInt(limit));
-                // Fetch detailed data for matching Pokemon
-                const detailedResults = await Promise.all(matchingPokemon.map(async (pokemon)=>{
-                    const data = await fetch(pokemon.url).then((results)=>results.json());
-                    const abilities = await Promise.all(data.abilities.map(async (ability)=>{
-                        const url = ability.ability.url;
-                        return {
-                            data: await fetch(url).then((results)=>results.json())
-                        };
-                    }));
-                    const pokeFlavorText = await fetch(data.species.url).then((results)=>results.json());
-                    return {
-                        ...pokemon,
-                        flavorTexts: pokeFlavorText.flavor_text_entries,
-                        abilities: abilities,
-                        data: data
-                    };
-                }));
-                searchResults = detailedResults;
-            }
-        }
-        // If searching by type
-        if (type && searchResults.length === 0) {
-            const response2 = await fetch(`https://pokeapi.co/api/v2/type/${type.toLowerCase()}`);
-            if (response2.ok) {
-                const typeData = await response2.json();
-                const typePokemon = typeData.pokemon.slice(0, parseInt(limit));
-                const detailedResults1 = await Promise.all(typePokemon.map(async (item)=>{
-                    const data = await fetch(item.pokemon.url).then((results)=>results.json());
-                    const abilities = await Promise.all(data.abilities.map(async (ability)=>{
-                        const url = ability.ability.url;
-                        return {
-                            data: await fetch(url).then((results)=>results.json())
-                        };
-                    }));
-                    const pokeFlavorText = await fetch(data.species.url).then((results)=>results.json());
-                    return {
-                        name: item.pokemon.name,
-                        url: item.pokemon.url,
-                        flavorTexts: pokeFlavorText.flavor_text_entries,
-                        abilities: abilities,
-                        data: data
-                    };
-                }));
-                searchResults = detailedResults1;
-            }
-        }
-        res.status(200).json({
-            results: searchResults,
-            query: q,
-            type: type,
-            count: searchResults.length
-        });
-    } catch (error1) {
-        console.error("Error searching Pokemon:", error1);
-        res.status(500).json({
-            message: "Internal server error"
-        });
-    }
-}
-
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ handler)\n/* harmony export */ });\n// API route for searching Pokemon\nasync function handler(req, res) {\n    if (req.method !== \"GET\") {\n        return res.status(405).json({\n            message: \"Method not allowed\"\n        });\n    }\n    const { q , type , limit =20  } = req.query;\n    if (!q && !type) {\n        return res.status(400).json({\n            message: \"Search query or type filter required\"\n        });\n    }\n    try {\n        let searchResults = [];\n        // If searching by name/ID\n        if (q) {\n            // Try to get Pokemon by exact name first\n            try {\n                const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${q.toLowerCase()}`);\n                if (response.ok) {\n                    const pokemon = await response.json();\n                    const abilities = await Promise.all(pokemon.abilities.map(async (ability)=>{\n                        const url = ability.ability.url;\n                        return {\n                            data: await fetch(url).then((results)=>results.json())\n                        };\n                    }));\n                    const pokeFlavorText = await fetch(pokemon.species.url).then((results)=>results.json());\n                    searchResults.push({\n                        name: pokemon.name,\n                        url: `https://pokeapi.co/api/v2/pokemon/${pokemon.id}/`,\n                        flavorTexts: pokeFlavorText.flavor_text_entries,\n                        abilities: abilities,\n                        data: pokemon\n                    });\n                }\n            } catch (error) {\n            // If exact match fails, we'll fall back to broader search below\n            }\n            // If no exact match and query looks like it could be partial name\n            if (searchResults.length === 0 && isNaN(q)) {\n                // For demo purposes, we'll fetch first 500 Pokemon and filter client-side\n                // In production, you'd want a proper search index\n                const response1 = await fetch(\"https://pokeapi.co/api/v2/pokemon/?limit=500\");\n                const allPokemon = await response1.json();\n                const matchingPokemon = allPokemon.results.filter((pokemon)=>pokemon.name.toLowerCase().includes(q.toLowerCase())).slice(0, parseInt(limit));\n                // Fetch detailed data for matching Pokemon\n                const detailedResults = await Promise.all(matchingPokemon.map(async (pokemon)=>{\n                    const data = await fetch(pokemon.url).then((results)=>results.json());\n                    const abilities = await Promise.all(data.abilities.map(async (ability)=>{\n                        const url = ability.ability.url;\n                        return {\n                            data: await fetch(url).then((results)=>results.json())\n                        };\n                    }));\n                    const pokeFlavorText = await fetch(data.species.url).then((results)=>results.json());\n                    return {\n                        ...pokemon,\n                        flavorTexts: pokeFlavorText.flavor_text_entries,\n                        abilities: abilities,\n                        data: data\n                    };\n                }));\n                searchResults = detailedResults;\n            }\n        }\n        // If searching by type\n        if (type && searchResults.length === 0) {\n            const response2 = await fetch(`https://pokeapi.co/api/v2/type/${type.toLowerCase()}`);\n            if (response2.ok) {\n                const typeData = await response2.json();\n                const typePokemon = typeData.pokemon.slice(0, parseInt(limit));\n                const detailedResults1 = await Promise.all(typePokemon.map(async (item)=>{\n                    const data = await fetch(item.pokemon.url).then((results)=>results.json());\n                    const abilities = await Promise.all(data.abilities.map(async (ability)=>{\n                        const url = ability.ability.url;\n                        return {\n                            data: await fetch(url).then((results)=>results.json())\n                        };\n                    }));\n                    const pokeFlavorText = await fetch(data.species.url).then((results)=>results.json());\n                    return {\n                        name: item.pokemon.name,\n                        url: item.pokemon.url,\n                        flavorTexts: pokeFlavorText.flavor_text_entries,\n                        abilities: abilities,\n                        data: data\n                    };\n                }));\n                searchResults = detailedResults1;\n            }\n        }\n        res.status(200).json({\n            results: searchResults,\n            query: q,\n            type: type,\n            count: searchResults.length\n        });\n    } catch (error1) {\n        console.error(\"Error searching Pokemon:\", error1);\n        res.status(500).json({\n            message: \"Internal server error\"\n        });\n    }\n}\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,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SUFBSSxFQUFFLENBQUM7eUJBQ3ZEO29CQUNILENBQUMsQ0FBQyxDQUFDO29CQUNILE1BQU1xQixjQUFjLEdBQUcsTUFBTWIsS0FBSyxDQUFDVSxJQUFJLENBQUNJLE9BQU8sQ0FBQ0wsR0FBRyxDQUFDLENBQUNFLElBQUksQ0FBQ0MsQ0FBQUEsT0FBTyxHQUFJQSxPQUFPLENBQUNwQixJQUFJLEVBQUUsQ0FBQztvQkFDcEYsT0FBTzt3QkFDSHdCLElBQUksRUFBRWdCLElBQUksQ0FBQzdCLE9BQU8sQ0FBQ2EsSUFBSTt3QkFDdkJQLEdBQUcsRUFBRXVCLElBQUksQ0FBQzdCLE9BQU8sQ0FBQ00sR0FBRzt3QkFDckJTLFdBQVcsRUFBRUwsY0FBYyxDQUFDTSxtQkFBbUI7d0JBQy9DZixTQUFTLEVBQUVBLFNBQVM7d0JBQ3BCTSxJQUFJLEVBQUVBLElBQUk7cUJBQ2I7Z0JBQ0gsQ0FBQyxDQUFDLENBQ0g7Z0JBRURaLGFBQWEsR0FBRytCLGdCQUFlLENBQUM7WUFDbEMsQ0FBQztRQUNILENBQUM7UUFFRHhDLEdBQUcsQ0FBQ0UsTUFBTSxDQUFDLEdBQUcsQ0FBQyxDQUFDQyxJQUFJLENBQUM7WUFDbkJvQixPQUFPLEVBQUVkLGFBQWE7WUFDdEJELEtBQUssRUFBRUgsQ0FBQztZQUNSQyxJQUFJLEVBQUVBLElBQUk7WUFDVnNDLEtBQUssRUFBRW5DLGFBQWEsQ0FBQ3VCLE1BQU07U0FDNUIsQ0FBQyxDQUFDO0lBRUwsRUFBRSxPQUFPRCxNQUFLLEVBQUU7UUFDZGMsT0FBTyxDQUFDZCxLQUFLLENBQUMsMEJBQTBCLEVBQUVBLE1BQUssQ0FBQyxDQUFDO1FBQ2pEL0IsR0FBRyxDQUFDRSxNQUFNLENBQUMsR0FBRyxDQUFDLENBQUNDLElBQUksQ0FBQztZQUFFQyxPQUFPLEVBQUUsdUJBQXVCO1NBQUUsQ0FBQyxDQUFDO0lBQzdELENBQUM7QUFDSCxDQUFDIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vcG9rZWRleC8uL3BhZ2VzL2FwaS9zZWFyY2guanM/NWQzYSJdLCJzb3VyY2VzQ29udGVudCI6WyIvLyBBUEkgcm91dGUgZm9yIHNlYXJjaGluZyBQb2tlbW9uXG5leHBvcnQgZGVmYXVsdCBhc3luYyBmdW5jdGlvbiBoYW5kbGVyKHJlcSwgcmVzKSB7XG4gIGlmIChyZXEubWV0aG9kICE9PSAnR0VUJykge1xuICAgIHJldHVybiByZXMuc3RhdHVzKDQwNSkuanNvbih7IG1lc3NhZ2U6ICdNZXRob2Qgbm90IGFsbG93ZWQnIH0pO1xuICB9XG5cbiAgY29uc3QgeyBxLCB0eXBlLCBsaW1pdCA9IDIwIH0gPSByZXEucXVlcnk7XG5cbiAgaWYgKCFxICYmICF0eXBlKSB7XG4gICAgcmV0dXJuIHJlcy5zdGF0dXMoNDAwKS5qc29uKHsgbWVzc2FnZTogJ1NlYXJjaCBxdWVyeSBvciB0eXBlIGZpbHRlciByZXF1aXJlZCcgfSk7XG4gIH1cblxuICB0cnkge1xuICAgIGxldCBzZWFyY2hSZXN1bHRzID0gW107XG5cbiAgICAvLyBJZiBzZWFyY2hpbmcgYnkgbmFtZS9JRFxuICAgIGlmIChxKSB7XG4gICAgICAvLyBUcnkgdG8gZ2V0IFBva2Vtb24gYnkgZXhhY3QgbmFtZSBmaXJzdFxuICAgICAgdHJ5IHtcbiAgICAgICAgY29uc3QgcmVzcG9uc2UgPSBhd2FpdCBmZXRjaChgaHR0cHM6Ly9wb2tlYXBpLmNvL2FwaS92Mi9wb2tlbW9uLyR7cS50b0xvd2VyQ2FzZSgpfWApO1xuICAgICAgICBpZiAocmVzcG9uc2Uub2spIHtcbiAgICAgICAgICBjb25zdCBwb2tlbW9uID0gYXdhaXQgcmVzcG9uc2UuanNvbigpO1xuICAgICAgICAgIGNvbnN0IGFiaWxpdGllcyA9IGF3YWl0IFByb21pc2UuYWxsKHBva2Vtb24uYWJpbGl0aWVzLm1hcChhc3luYyAoYWJpbGl0eSkgPT4ge1xuICAgICAgICAgICAgY29uc3QgdXJsID0gYWJpbGl0eS5hYmlsaXR5LnVybDtcbiAgICAgICAgICAgIHJldHVybiB7XG4gICAgICAgICAgICAgIGRhdGE6IGF3YWl0IGZldGNoKHVybCkudGhlbihyZXN1bHRzID0+IHJlc3VsdHMuanNvbigpKVxuICAgICAgICAgICAgfVxuICAgICAgICAgIH0pKTtcbiAgICAgICAgICBjb25zdCBwb2tlRmxhdm9yVGV4dCA9IGF3YWl0IGZldGNoKHBva2Vtb24uc3BlY2llcy51cmwpLnRoZW4ocmVzdWx0cyA9PiByZXN1bHRzLmpzb24oKSk7XG5cbiAgICAgICAgICBzZWFyY2hSZXN1bHRzLnB1c2goe1xuICAgICAgICAgICAgbmFtZTogcG9rZW1vbi5uYW1lLFxuICAgICAgICAgICAgdXJsOiBgaHR0cHM6Ly9wb2tlYXBpLmNvL2FwaS92Mi9wb2tlbW9uLyR7cG9rZW1vbi5pZH0vYCxcbiAgICAgICAgICAgIGZsYXZvclRleHRzOiBwb2tlRmxhdm9yVGV4dC5mbGF2b3JfdGV4dF9lbnRyaWVzLFxuICAgICAgICAgICAgYWJpbGl0aWVzOiBhYmlsaXRpZXMsXG4gICAgICAgICAgICBkYXRhOiBwb2tlbW9uXG4gICAgICAgICAgfSk7XG4gICAgICAgIH1cbiAgICAgIH0gY2F0Y2ggKGVycm9yKSB7XG4gICAgICAgIC8vIElmIGV4YWN0IG1hdGNoIGZhaWxzLCB3ZSdsbCBmYWxsIGJhY2sgdG8gYnJvYWRlciBzZWFyY2ggYmVsb3dcbiAgICAgIH1cblxuICAgICAgLy8gSWYgbm8gZXhhY3QgbWF0Y2ggYW5kIHF1ZXJ5IGxvb2tzIGxpa2UgaXQgY291bGQgYmUgcGFydGlhbCBuYW1lXG4gICAgICBpZiAoc2VhcmNoUmVzdWx0cy5sZW5ndGggPT09IDAgJiYgaXNOYU4ocSkpIHtcbiAgICAgICAgLy8gRm9yIGRlbW8gcHVycG9zZXMsIHdlJ2xsIGZldGNoIGZpcnN0IDUwMCBQb2tlbW9uIGFuZCBmaWx0ZXIgY2xpZW50LXNpZGVcbiAgICAgICAgLy8gSW4gcHJvZHVjdGlvbiwgeW91J2Qgd2FudCBhIHByb3BlciBzZWFyY2ggaW5kZXhcbiAgICAgICAgY29uc3QgcmVzcG9uc2UgPSBhd2FpdCBmZXRjaCgnaHR0cHM6Ly9wb2tlYXBpLmNvL2FwaS92Mi9wb2tlbW9uLz9saW1pdD01MDAnKTtcbiAgICAgICAgY29uc3QgYWxsUG9rZW1vbiA9IGF3YWl0IHJlc3BvbnNlLmpzb24oKTtcblxuICAgICAgICBjb25zdCBtYXRjaGluZ1Bva2Vtb24gPSBhbGxQb2tlbW9uLnJlc3VsdHMuZmlsdGVyKHBva2Vtb24gPT5cbiAgICAgICAgICBwb2tlbW9uLm5hbWUudG9Mb3dlckNhc2UoKS5pbmNsdWRlcyhxLnRvTG93ZXJDYXNlKCkpXG4gICAgICAgICkuc2xpY2UoMCwgcGFyc2VJbnQobGltaXQpKTtcblxuICAgICAgICAvLyBGZXRjaCBkZXRhaWxlZCBkYXRhIGZvciBtYXRjaGluZyBQb2tlbW9uXG4gICAgICAgIGNvbnN0IGRldGFpbGVkUmVzdWx0cyA9IGF3YWl0IFByb21pc2UuYWxsKFxuICAgICAgICAgIG1hdGNoaW5nUG9rZW1vbi5tYXAoYXN5bmMgKHBva2Vtb24pID0+IHtcbiAgICAgICAgICAgIGNvbnN0IGRhdGEgPSBhd2FpdCBmZXRjaChwb2tlbW9uLnVybCkudGhlbihyZXN1bHRzID0+IHJlc3VsdHMuanNvbigpKTtcbiAgICAgICAgICAgIGNvbnN0IGFiaWxpdGllcyA9IGF3YWl0IFByb21pc2UuYWxsKGRhdGEuYWJpbGl0aWVzLm1hcChhc3luYyAoYWJpbGl0eSkgPT4ge1xuICAgICAgICAgICAgICBjb25zdCB1cmwgPSBhYmlsaXR5LmFiaWxpdHkudXJsO1xuICAgICAgICAgICAgICByZXR1cm4ge1xuICAgICAgICAgICAgICAgIGRhdGE6IGF3YWl0IGZldGNoKHVybCkudGhlbihyZXN1bHRzID0+IHJlc3VsdHMuanNvbigpKVxuICAgICAgICAgICAgICB9XG4gICAgICAgICAgICB9KSk7XG4gICAgICAgICAgICBjb25zdCBwb2tlRmxhdm9yVGV4dCA9IGF3YWl0IGZldGNoKGRhdGEuc3BlY2llcy51cmwpLnRoZW4ocmVzdWx0cyA9PiByZXN1bHRzLmpzb24oKSk7XG4gICAgICAgICAgICByZXR1cm4ge1xuICAgICAgICAgICAgICAgIC4uLnBva2Vtb24sXG4gICAgICAgICAgICAgICAgZmxhdm9yVGV4dHM6IHBva2VGbGF2b3JUZXh0LmZsYXZvcl90ZXh0X2VudHJpZXMsXG4gICAgICAgICAgICAgICAgYWJpbGl0aWVzOiBhYmlsaXRpZXMsXG4gICAgICAgICAgICAgICAgZGF0YTogZGF0YVxuICAgICAgICAgICAgfVxuICAgICAgICAgIH0pXG4gICAgICAgICk7XG5cbiAgICAgICAgc2VhcmNoUmVzdWx0cyA9IGRldGFpbGVkUmVzdWx0cztcbiAgICAgIH1cbiAgICB9XG5cbiAgICAvLyBJZiBzZWFyY2hpbmcgYnkgdHlwZVxuICAgIGlmICh0eXBlICYmIHNlYXJjaFJlc3VsdHMubGVuZ3RoID09PSAwKSB7XG4gICAgICBjb25zdCByZXNwb25zZSA9IGF3YWl0IGZldGNoKGBodHRwczovL3Bva2VhcGkuY28vYXBpL3YyL3R5cGUvJHt0eXBlLnRvTG93ZXJDYXNlKCl9YCk7XG4gICAgICBpZiAocmVzcG9uc2Uub2spIHtcbiAgICAgICAgY29uc3QgdHlwZURhdGEgPSBhd2FpdCByZXNwb25zZS5qc29uKCk7XG4gICAgICAgIGNvbnN0IHR5cGVQb2tlbW9uID0gdHlwZURhdGEucG9rZW1vbi5zbGljZSgwLCBwYXJzZUludChsaW1pdCkpO1xuXG4gICAgICAgIGNvbnN0IGRldGFpbGVkUmVzdWx0cyA9IGF3YWl0IFByb21pc2UuYWxsKFxuICAgICAgICAgIHR5cGVQb2tlbW9uLm1hcChhc3luYyAoaXRlbSkgPT4ge1xuICAgICAgICAgICAgY29uc3QgZGF0YSA9IGF3YWl0IGZldGNoKGl0ZW0ucG9rZW1vbi51cmwpLnRoZW4ocmVzdWx0cyA9PiByZXN1bHRzLmpzb24oKSk7XG4gICAgICAgICAgICBjb25zdCBhYmlsaXRpZXMgPSBhd2FpdCBQcm9taXNlLmFsbChkYXRhLmFiaWxpdGllcy5tYXAoYXN5bmMgKGFiaWxpdHkpID0+IHtcbiAgICAgICAgICAgICAgY29uc3QgdXJsID0gYWJpbGl0eS5hYmlsaXR5LnVybDtcbiAgICAgICAgICAgICAgcmV0dXJuIHtcbiAgICAgICAgICAgICAgICBkYXRhOiBhd2FpdCBmZXRjaCh1cmwpLnRoZW4ocmVzdWx0cyA9PiByZXN1bHRzLmpzb24oKSlcbiAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgfSkpO1xuICAgICAgICAgICAgY29uc3QgcG9rZUZsYXZvclRleHQgPSBhd2FpdCBmZXRjaChkYXRhLnNwZWNpZXMudXJsKS50aGVuKHJlc3VsdHMgPT4gcmVzdWx0cy5qc29uKCkpO1xuICAgICAgICAgICAgcmV0dXJuIHtcbiAgICAgICAgICAgICAgICBuYW1lOiBpdGVtLnBva2Vtb24ubmFtZSxcbiAgICAgICAgICAgICAgICB1cmw6IGl0ZW0ucG9rZW1vbi51cmwsXG4gICAgICAgICAgICAgICAgZmxhdm9yVGV4dHM6IHBva2VGbGF2b3JUZXh0LmZsYXZvcl90ZXh0X2VudHJpZXMsXG4gICAgICAgICAgICAgICAgYWJpbGl0aWVzOiBhYmlsaXRpZXMsXG4gICAgICAgICAgICAgICAgZGF0YTogZGF0YVxuICAgICAgICAgICAgfVxuICAgICAgICAgIH0pXG4gICAgICAgICk7XG5cbiAgICAgICAgc2VhcmNoUmVzdWx0cyA9IGRldGFpbGVkUmVzdWx0cztcbiAgICAgIH1cbiAgICB9XG5cbiAgICByZXMuc3RhdHVzKDIwMCkuanNvbih7XG4gICAgICByZXN1bHRzOiBzZWFyY2hSZXN1bHRzLFxuICAgICAgcXVlcnk6IHEsXG4gICAgICB0eXBlOiB0eXBlLFxuICAgICAgY291bnQ6IHNlYXJjaFJlc3VsdHMubGVuZ3RoXG4gICAgfSk7XG5cbiAgfSBjYXRjaCAoZXJyb3IpIHtcbiAgICBjb25zb2xlLmVycm9yKCdFcnJvciBzZWFyY2hpbmcgUG9rZW1vbjonLCBlcnJvcik7XG4gICAgcmVzLnN0YXR1cyg1MDApLmpzb24oeyBtZXNzYWdlOiAnSW50ZXJuYWwgc2VydmVyIGVycm9yJyB9KTtcbiAgfVxufSJdLCJuYW1lcyI6WyJoYW5kbGVyIiwicmVxIiwicmVzIiwibWV0aG9kIiwic3RhdHVzIiwianNvbiIsIm1lc3NhZ2UiLCJxIiwidHlwZSIsImxpbWl0IiwicXVlcnkiLCJzZWFyY2hSZXN1bHRzIiwicmVzcG9uc2UiLCJmZXRjaCIsInRvTG93ZXJDYXNlIiwib2siLCJwb2tlbW9uIiwiYWJpbGl0aWVzIiwiUHJvbWlzZSIsImFsbCIsIm1hcCIsImFiaWxpdHkiLCJ1cmwiLCJkYXRhIiwidGhlbiIsInJlc3VsdHMiLCJwb2tlRmxhdm9yVGV4dCIsInNwZWNpZXMiLCJwdXNoIiwibmFtZSIsImlkIiwiZmxhdm9yVGV4dHMiLCJmbGF2b3JfdGV4dF9lbnRyaWVzIiwiZXJyb3IiLCJsZW5ndGgiLCJpc05hTiIsImFsbFBva2Vtb24iLCJtYXRjaGluZ1Bva2Vtb24iLCJmaWx0ZXIiLCJpbmNsdWRlcyIsInNsaWNlIiwicGFyc2VJbnQiLCJkZXRhaWxlZFJlc3VsdHMiLCJ0eXBlRGF0YSIsInR5cGVQb2tlbW9uIiwiaXRlbSIsImNvdW50IiwiY29uc29sZSJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///(api)/./pages/api/search.js\n");
 
 /***/ })
 
@@ -129,7 +30,7 @@ async function handler(req, res) {
 var __webpack_require__ = require("../../webpack-api-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = (__webpack_exec__(122));
+var __webpack_exports__ = (__webpack_exec__("(api)/./pages/api/search.js"));
 module.exports = __webpack_exports__;
 
 })();
